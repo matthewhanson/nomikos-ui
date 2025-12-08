@@ -42,7 +42,7 @@ jobs:
         env:
           # Use GitHub Secret for API URL
           # Note: This will be visible in the built JS files - it's a public API endpoint
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_NOMIKOS_URL: ${{ secrets.NOMIKOS_URL }}
           # Set base path for GitHub Pages (no trailing slash)
           VITE_BASE_PATH: /nomikos-ui
       

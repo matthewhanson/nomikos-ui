@@ -3,8 +3,8 @@ import ReactMarkdown from 'react-markdown'
 import './App.css'
 import { CHAT_EXAMPLES, SEARCH_EXAMPLES, getRandomExamples } from './exampleQueries'
 
-const API_BASE = import.meta.env.VITE_API_URL 
-  ? import.meta.env.VITE_API_URL 
+const API_BASE = import.meta.env.VITE_NOMIKOS_URL 
+  ? import.meta.env.VITE_NOMIKOS_URL 
   : '/api'
 
 function App() {

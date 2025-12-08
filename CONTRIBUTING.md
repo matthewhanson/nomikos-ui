@@ -28,10 +28,10 @@ Thank you for your interest in contributing! This document provides guidelines f
    Create a `.env.local` file for local development:
    ```bash
    # Option 1: Local API server
-   echo "VITE_API_URL=http://localhost:8000" > .env.local
+   echo "VITE_NOMIKOS_URL=http://localhost:8000" > .env.local
    
    # Option 2: Deployed API
-   echo "VITE_API_URL=https://your-api-endpoint.com/prod" > .env.local
+   echo "VITE_NOMIKOS_URL=https://your-api-endpoint.com/prod" > .env.local
    ```
 
 4. **Start the development server:**
@@ -195,7 +195,7 @@ export const SEARCH_EXAMPLES = [
 The API base URL is configured in `src/App.jsx`:
 
 ```javascript
-const API_BASE = import.meta.env.VITE_API_URL || '/api'
+const API_BASE = import.meta.env.VITE_NOMIKOS_URL || '/api'
 ```
 
 Endpoints:

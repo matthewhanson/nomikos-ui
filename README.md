@@ -66,7 +66,7 @@ Visit the live demo at: `https://YOUR_USERNAME.github.io/nomikos-ui`   npm insta
 
 ### Installation   ```bash
 
-   echo "VITE_API_URL=https://your-api-gateway-url.execute-api.us-east-1.amazonaws.com/prod" > .env.local
+   echo "VITE_NOMIKOS_URL=https://your-api-gateway-url.execute-api.us-east-1.amazonaws.com/prod" > .env.local
 
 ```bash   ```
 
@@ -90,7 +90,7 @@ npm install
 
 
 
-#### Option 1: Using Local API Server- **`VITE_API_URL`**: API endpoint
+#### Option 1: Using Local API Server- **`VITE_NOMIKOS_URL`**: API endpoint
 
   - Default: `/api` (proxies to `http://localhost:8000`)
 
@@ -120,7 +120,7 @@ The UI will proxy API requests to `http://localhost:8000` by default.
 
 1. Create a `.env.local` file:
    ```bash
-   echo "VITE_API_URL=https://your-api-endpoint.com/prod" > .env.local
+   echo "VITE_NOMIKOS_URL=https://your-api-endpoint.com/prod" > .env.local
    ```
 
 2. Start the development server:
@@ -136,20 +136,20 @@ Environment variables (create `.env.local` to override):
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `VITE_API_URL` | Backend API endpoint URL | `/api` (proxies to localhost:8000) |
+| `VITE_NOMIKOS_URL` | Backend API endpoint URL | `/api` (proxies to localhost:8000) |
 
 ### Example Configurations
 
 **Local development:**
 ```bash
 # .env.local
-VITE_API_URL=http://localhost:8000
+VITE_NOMIKOS_URL=http://localhost:8000
 ```
 
 **Deployed API:**
 ```bash
 # .env.local
-VITE_API_URL=https://your-lambda-api.amazonaws.com/prod
+VITE_NOMIKOS_URL=https://your-lambda-api.amazonaws.com/prod
 ```
 
 ## Building for Production

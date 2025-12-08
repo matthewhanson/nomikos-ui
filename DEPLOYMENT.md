@@ -80,7 +80,7 @@ npm run deploy
 
 3. **Add environment variables:**
    - Go to Site settings → Environment variables
-   - Add `VITE_API_URL` with your API endpoint
+   - Add `VITE_NOMIKOS_URL` with your API endpoint
 
 4. **Deploy:**
    - Netlify will automatically deploy on push to main
@@ -114,7 +114,7 @@ netlify deploy --prod --dir=dist
    - Output directory: `dist`
 
 3. **Add environment variables:**
-   - Add `VITE_API_URL` in project settings
+   - Add `VITE_NOMIKOS_URL` in project settings
 
 4. **Deploy:**
    - Vercel will automatically deploy on push
@@ -161,7 +161,7 @@ vercel --prod
 6. **Update environment variables:**
    - Rebuild with production API URL:
    ```bash
-   VITE_API_URL=https://your-api.com npm run build
+   VITE_NOMIKOS_URL=https://your-api.com npm run build
    ```
 
 ## Docker
@@ -176,8 +176,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-ARG VITE_API_URL
-ENV VITE_API_URL=$VITE_API_URL
+ARG VITE_NOMIKOS_URL
+ENV VITE_NOMIKOS_URL=$VITE_NOMIKOS_URL
 RUN npm run build
 
 FROM nginx:alpine
@@ -214,7 +214,7 @@ http {
 
 ```bash
 # Build image
-docker build --build-arg VITE_API_URL=https://your-api.com -t nomikos-ui .
+docker build --build-arg VITE_NOMIKOS_URL=https://your-api.com -t nomikos-ui .
 
 # Run container
 docker run -p 8080:80 nomikos-ui
@@ -226,7 +226,7 @@ All deployment methods require configuring the API endpoint:
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `VITE_API_URL` | Backend API base URL | `https://api.example.com/prod` |
+| `VITE_NOMIKOS_URL` | Backend API base URL | `https://api.example.com/prod` |
 
 **Setting environment variables:**
 
