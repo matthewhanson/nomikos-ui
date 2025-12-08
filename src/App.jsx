@@ -134,7 +134,7 @@ function App() {
       <header className="header">
         <div className="header-content">
           <div className="header-logo">
-            <img src="/images/nomikos-library.png" alt="Nomikos Library" className="library-image" />
+            <img src={`${import.meta.env.BASE_URL}images/nomikos-library.png`} alt="Nomikos Library" className="library-image" />
           </div>
           <div className="header-text">
             <h1 onClick={() => setMessages([])} style={{ cursor: 'pointer' }}>Nomikos</h1>
