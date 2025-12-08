@@ -1,0 +1,40 @@
+{
+  "name": "nomikos-ui",
+  "version": "0.1.0",
+  "description": "A fantasy-themed chat and search interface for the Shadow World RPG knowledge base",
+  "type": "module",
+  "keywords": [
+    "react",
+    "vite",
+    "chat",
+    "search",
+    "rag",
+    "shadow-world",
+    "rpg",
+    "knowledge-base"
+  ],
+  "author": "Matthew",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/nomikos-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/nomikos-ui/issues"
+  },
+  "homepage": "https://YOUR_USERNAME.github.io/nomikos-ui/",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-markdown": "^10.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.0"
+  }
+}
