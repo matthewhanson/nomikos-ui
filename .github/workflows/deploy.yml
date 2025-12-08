@@ -40,8 +40,9 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # Set your API URL here or use GitHub Secrets
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          # Default to localhost for demo purposes
+          # Users can run their own API locally
+          VITE_API_URL: ${{ secrets.VITE_API_URL || 'http://localhost:8000' }}
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
