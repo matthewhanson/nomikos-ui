@@ -40,11 +40,11 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # Default to localhost for demo purposes
-          # Users can run their own API locally
-          VITE_API_URL: ${{ secrets.VITE_API_URL || 'http://localhost:8000' }}
-          # Set base path for GitHub Pages
-          VITE_BASE_PATH: /nomikos-ui/
+          # Use GitHub Secret for API URL
+          # Note: This will be visible in the built JS files - it's a public API endpoint
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          # Set base path for GitHub Pages (no trailing slash)
+          VITE_BASE_PATH: /nomikos-ui
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
