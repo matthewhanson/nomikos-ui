@@ -20,7 +20,32 @@
 .header-content {
   max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-logo {
+  flex-shrink: 0;
+}
+
+.header-text {
+  flex: 1;
+  text-align: left;
+}
+
+.library-image {
+  max-width: 120px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 40px rgba(139, 92, 246, 0.3);
+  border: 2px solid rgba(139, 92, 246, 0.4);
+  transition: all 0.3s ease;
+}
+
+.library-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.8), 0 0 60px rgba(139, 92, 246, 0.5);
 }
 
 .header h1 {

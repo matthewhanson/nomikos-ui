@@ -133,8 +133,13 @@ function App() {
     <div className="app">
       <header className="header">
         <div className="header-content">
-          <h1 onClick={() => setMessages([])} style={{ cursor: 'pointer' }}>📚 Nomikos</h1>
-          <p className="subtitle">You stand within Nomikos, the greatest library on Kulthea.</p>
+          <div className="header-logo">
+            <img src="/images/nomikos-library.png" alt="Nomikos Library" className="library-image" />
+          </div>
+          <div className="header-text">
+            <h1 onClick={() => setMessages([])} style={{ cursor: 'pointer' }}>Nomikos</h1>
+            <p className="subtitle">You stand within the greatest library on Kulthea.</p>
+          </div>
         </div>
         
         <div className="mode-selector">
@@ -167,7 +172,7 @@ function App() {
         <div className="messages">
           {messages.length === 0 && (
             <div className="welcome">
-              <div className="welcome-icon">�</div>
+              <div className="welcome-icon">📜</div>
               <h2>Welcome to the Halls of Nomikos.</h2>
               <p className="welcome-desc">
                 {mode === 'chat' 
@@ -190,7 +195,7 @@ function App() {
           {messages.map((msg, idx) => (
             <div key={idx} className={`message ${msg.role} ${msg.error ? 'error' : ''}`}>
               <div className="message-avatar">
-                {msg.role === 'user' ? '🧙' : '📖'}
+                {msg.role === 'user' ? '❓' : '📖'}
               </div>
               <div className="message-bubble">
                 <div className="message-content">
