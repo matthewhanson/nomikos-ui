@@ -69,7 +69,7 @@ function App() {
     const response = await fetch(`${API_BASE}/search`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query, limit: 5 })
+      body: JSON.stringify({ query, limit: 10 })  // Increased for more comprehensive RAG context
     })
 
     if (!response.ok) throw new Error('Search failed: ' + response.status)
@@ -134,7 +134,7 @@ function App() {
       <header className="header">
         <div className="header-content">
           <h1 onClick={() => setMessages([])} style={{ cursor: 'pointer' }}>📚 Nomikos</h1>
-          <p className="subtitle">You stand within Nomikos, the greatest library of Kulthea.</p>
+          <p className="subtitle">You stand within Nomikos, the greatest library on Kulthea.</p>
         </div>
         
         <div className="mode-selector">
