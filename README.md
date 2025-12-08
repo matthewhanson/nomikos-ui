@@ -66,7 +66,7 @@ Visit the live demo at: `https://YOUR_USERNAME.github.io/nomikos-ui`   npm insta
 
 ### Installation   ```bash
 
-   echo "VITE_API_URL=https://f9pr5ikrrj.execute-api.us-east-1.amazonaws.com/prod" > .env.local
+   echo "VITE_API_URL=https://your-api-gateway-url.execute-api.us-east-1.amazonaws.com/prod" > .env.local
 
 ```bash   ```
 
@@ -94,7 +94,7 @@ npm install
 
   - Default: `/api` (proxies to `http://localhost:8000`)
 
-1. Start the Nomikos API server (see [nomikos](https://github.com/YOUR_USERNAME/nomikos)):  - Deployed: `https://f9pr5ikrrj.execute-api.us-east-1.amazonaws.com/prod`
+1. Start the Nomikos API server (see [nomikos](https://github.com/YOUR_USERNAME/nomikos)):  - Deployed: `https://your-api-gateway-url.execute-api.us-east-1.amazonaws.com/prod`
 
    ```bash
 
