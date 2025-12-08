@@ -3,6 +3,13 @@ import ReactMarkdown from 'react-markdown'
 import './App.css'
 import { CHAT_EXAMPLES, SEARCH_EXAMPLES, getRandomExamples } from './exampleQueries'
 
+// Helper to construct public asset URLs with proper base path
+const publicUrl = (path) => {
+  const base = import.meta.env.BASE_URL || '/'
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path
+  return base + cleanPath
+}
+
 const API_BASE = import.meta.env.VITE_NOMIKOS_URL 
   ? import.meta.env.VITE_NOMIKOS_URL 
   : '/api'
@@ -134,7 +141,7 @@ function App() {
       <header className="header">
         <div className="header-content">
           <div className="header-logo">
-            <img src={`${import.meta.env.BASE_URL}images/nomikos-library.png`} alt="Nomikos Library" className="library-image" />
+            <img src={publicUrl('/images/nomikos-library.png')} alt="Nomikos Library" className="library-image" />
           </div>
           <div className="header-text">
             <h1 onClick={() => setMessages([])} style={{ cursor: 'pointer' }}>Nomikos</h1>
