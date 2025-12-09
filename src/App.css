@@ -532,16 +532,22 @@
   
   .messages {
     padding: 0.75rem;
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom)); /* Account for fixed input form */
     gap: 0.75rem;
   }
   
   .input-form {
     padding: 0.75rem;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
     gap: 0.5rem;
     /* Stick to bottom on mobile */
-    position: sticky;
+    position: fixed;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(30, 20, 60, 0.95), rgba(60, 40, 80, 0.95));
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, rgba(30, 20, 60, 0.98), rgba(60, 40, 80, 0.98));
+    backdrop-filter: blur(10px);
+    z-index: 5;
   }
   
   .input-form input {
