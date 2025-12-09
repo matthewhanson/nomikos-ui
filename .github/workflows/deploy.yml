@@ -43,8 +43,8 @@ jobs:
           # Use GitHub Secret for API URL
           # Note: This will be visible in the built JS files - it's a public API endpoint
           VITE_NOMIKOS_URL: ${{ secrets.NOMIKOS_URL }}
-          # Set base path for GitHub Pages (with trailing slash for proper asset paths)
-          VITE_BASE_PATH: /nomikos-ui/
+          # Set base path for custom domain (root path since we have a dedicated domain)
+          VITE_BASE_PATH: /
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
