@@ -1,218 +1,110 @@
-# Nomikos UI# Nomikos UI
+# Nomikos UI
 
+*Fantasy-themed chat and search interface for the Nomikos RPG knowledge base.*
 
-
-A fantasy-themed web interface for exploring the Shadow World RPG documentation through AI-powered chat and semantic search.Fantasy-themed chat interface for the Nomikos RPG documentation knowledge base.
-
-
-
-[![Deploy to GitHub Pages](https://github.com/YOUR_USERNAME/nomikos-ui/actions/workflows/deploy.yml/badge.svg)](https://github.com/YOUR_USERNAME/nomikos-ui/actions/workflows/deploy.yml)## Features
-
-
-
-## Overview- 🎨 **Fantasy-themed UI** with purple/gold gradients and sword motifs
-
-- 💬 **Chat Mode**: AI-powered Q&A with GPT-4o-mini and RAG context
-
-Nomikos UI provides an elegant, browser-based interface to query and explore canonical Shadow World RPG documentation. It offers two modes of interaction:- 🔍 **Search Mode**: Direct search of the knowledge base with formatted results
-
-- 📱 **Responsive Design**: Works on desktop and mobile
-
-- **💬 Chat Mode**: Ask natural language questions and receive AI-generated answers with source citations- ✨ **Markdown Rendering**: Rich formatting for answers and search results
-
-- **🔍 Search Mode**: Perform semantic search to find relevant passages from the documentation
-
-## Running Locally
+A React + Vite web application providing an elegant interface for AI-powered search and chat over RPG campaign documentation.
 
 ## Features
 
-### Against Local API
+- 🎨 **Fantasy theme** - Purple/gold gradients with sword motifs and library aesthetics
+- 💬 **Chat mode** - Interactive Q&A with multi-search capability (LLM autonomously searches as needed)
+- �� **Answer mode** - Simple RAG with single search for quick factual questions
+- 🔍 **Search mode** - Direct semantic search of the knowledge base
+- ✨ **Markdown rendering** - Rich formatting for responses
+- 📱 **Responsive design** - Works on desktop and mobile
+- 🎲 **Example queries** - 100+ curated questions to explore the knowledge base
 
-- **Fantasy-themed design** with purple/gold gradients and library aesthetics
+## Quick Start
 
-- **Dual interaction modes** (chat and search) with 100+ curated example queries1. Start the Nomikos MCP server locally:
-
-- **Markdown rendering** for rich, formatted responses   ```bash
-
-- **Responsive layout** works on desktop and mobile devices   cd ../nomikos
-
-- **Configurable API backend** (local or deployed)   docker compose up
-
-- **Zero backend required** for static deployment (uses external API)   ```
-
-
-
-## Demo2. In a new terminal, start the UI:
-
-   ```bash
-
-Visit the live demo at: `https://YOUR_USERNAME.github.io/nomikos-ui`   npm install
-
-   npm run dev
-
-## Quick Start   ```
-
-
-
-### Prerequisites3. Open http://localhost:3000
-
-
-
-- Node.js 18 or later### Against Deployed API
-
-- npm 9 or later
-
-1. Create `.env.local` file:
-
-### Installation   ```bash
-
-   echo "NOMIKOS_URL=https://your-api-gateway-url.execute-api.us-east-1.amazonaws.com/prod" > .env.local
-
-```bash   ```
-
-# Clone the repository
-
-git clone https://github.com/YOUR_USERNAME/nomikos-ui.git2. Start the UI:
-
-cd nomikos-ui   ```bash
-
-   npm run dev
-
-# Install dependencies   ```
-
+```bash
+# Install dependencies
 npm install
 
-```3. Open http://localhost:3000
+# Start development server
+npm run dev
 
+# Open http://localhost:3000
+```
 
-
-### Running Locally## Configuration
-
-
-
-#### Option 1: Using Local API Server- **`NOMIKOS_URL`**: API endpoint
-
-  - Default: `/api` (proxies to `http://localhost:8000`)
-
-1. Start the Nomikos API server (see [nomikos](https://github.com/YOUR_USERNAME/nomikos)):  - Deployed: `https://your-api-gateway-url.execute-api.us-east-1.amazonaws.com/prod`
-
-   ```bash
-
-   # In the nomikos directory## Technology
-
-   docker compose up
-
-   ```- React 18 + Vite
-
-- react-markdown
-
-2. Start the UI development server:- Fantasy theme (purple/gold gradients)
-
-   ```bash
-   npm run dev
-   ```
-
-3. Open http://localhost:3000
-
-The UI will proxy API requests to `http://localhost:8000` by default.
-
-#### Option 2: Using Deployed API
-
-1. Create a `.env.local` file:
-   ```bash
-   echo "NOMIKOS_URL=https://your-api-endpoint.com/prod" > .env.local
-   ```
-
-2. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-3. Open http://localhost:3000
+The UI will proxy API requests to `http://localhost:8000` by default (requires local API server running).
 
 ## Configuration
 
-Environment variables (create `.env.local` to override):
+Create a `.env.local` file to configure the API endpoint:
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `VITE_NOMIKOS_URL` | Backend API endpoint URL | `/api` (proxies to localhost:8000) |
-
-**Note:** Vite requires the `VITE_` prefix for environment variables to be exposed to client-side code.
-
-### Example Configurations
-
-**Local development:**
+**Local development (with local API server):**
 ```bash
-# .env.local
 VITE_NOMIKOS_URL=http://localhost:8000
 ```
 
-**Deployed API:**
+**Using deployed API:**
 ```bash
-# .env.local
 VITE_NOMIKOS_URL=https://your-api-gateway-url.execute-api.us-east-1.amazonaws.com/prod
 ```
 
-## Building for Production
+**Note:** Vite requires the `VITE_` prefix for environment variables to be accessible in client code.
+
+## API Endpoints Used
+
+The UI calls these endpoints on the configured API base URL:
+
+- `POST /search` - Semantic search with `{query, limit}`
+- `POST /answer` - Simple RAG with `{messages, model, temperature, max_tokens}`
+- `POST /chat` - Interactive chat with tool calling (multi-search)
+- `GET /models` - List available models
+
+## Development
+
+### Running Locally
+
+**Option 1: With local API server**
 
 ```bash
-# Build the static site
-npm run build
+# Terminal 1: Start the API server
+cd ../nomikos
+docker compose up
 
-# Preview the production build
+# Terminal 2: Start the UI
+npm run dev
+```
+
+**Option 2: With deployed API**
+
+```bash
+# Create .env.local with deployed API URL
+echo "VITE_NOMIKOS_URL=https://your-api-url.com" > .env.local
+
+# Start development server
+npm run dev
+```
+
+### Building for Production
+
+```bash
+npm run build
+```
+
+Output will be in `dist/` directory.
+
+### Preview Production Build
+
+```bash
+npm run build
 npm run preview
 ```
 
-The built files will be in the `dist/` directory, ready for static hosting.
-
 ## Deployment
 
-### GitHub Pages
+The project includes a GitHub Actions workflow that automatically deploys to GitHub Pages on push to main branch.
 
-This project includes a GitHub Actions workflow that automatically deploys to GitHub Pages on push to `main`.
+### Setup GitHub Pages
 
-1. Enable GitHub Pages in your repository settings (Settings → Pages → Source: GitHub Actions)
-2. Push to the `main` branch
-3. The site will be available at `https://YOUR_USERNAME.github.io/nomikos-ui`
+1. Go to repository Settings → Pages
+2. Set source to "GitHub Actions"
+3. Add repository secret `NOMIKOS_URL` with your API endpoint
+4. Push to main branch to trigger deployment
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for manual deployment instructions and other hosting options.
-
-## Usage
-
-### Chat Mode
-
-1. Click the **💬 Chat** button
-2. Type a question about Shadow World lore, or click an example query
-3. Receive an AI-generated answer with relevant context from the documentation
-
-Example questions:
-- "What were the major events of the Unlife Wars?"
-- "Describe the powers and abilities of the Lords of Essænce"
-- "Tell me about dragons and their characteristics"
-
-### Search Mode
-
-1. Click the **🔍 Search** button
-2. Enter search terms or click an example query
-3. View ranked passages from the documentation with source attribution
-
-Example searches:
-- "Lords of Essænce"
-- "Wars of Dominion"
-- "dragons"
-
-### Navigation
-
-- Click the **📚 Nomikos** title to return to the landing page
-- Switch between Chat and Search modes at any time (clears current session)
-
-## Technology Stack
-
-- **Frontend**: React 18 + Vite
-- **Styling**: Custom CSS with CSS variables (fantasy theme)
-- **Markdown**: react-markdown for rich text rendering
-- **API**: REST API (configurable endpoint)
+The deployed site will be available at: `https://YOUR_USERNAME.github.io/nomikos-ui/`
 
 ## Project Structure
 
@@ -220,35 +112,30 @@ Example searches:
 nomikos-ui/
 ├── src/
 │   ├── App.jsx              # Main application component
-│   ├── App.css              # Fantasy-themed styles
-│   ├── exampleQueries.js    # 100+ curated example queries
-│   ├── index.css            # Global styles and CSS variables
-│   └── main.jsx             # Application entry point
-├── public/                  # Static assets (if any)
-├── dist/                    # Production build output (gitignored)
-├── .github/
-│   └── workflows/
-│       └── deploy.yml       # GitHub Pages deployment
-├── index.html               # HTML template
+│   ├── App.css              # Styles and theme
+│   ├── exampleQueries.js    # Curated example questions
+│   └── main.jsx             # Entry point
+├── public/                  # Static assets
+├── .github/workflows/       # GitHub Actions deployment
 ├── vite.config.js           # Vite configuration
 └── package.json             # Dependencies and scripts
 ```
 
-## Contributing
+## Technology Stack
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, testing, and contribution guidelines.
+- **React 18** - UI framework
+- **Vite** - Build tool and dev server
+- **react-markdown** - Markdown rendering
+- **CSS custom properties** - Theme variables
+
+## Mode Comparison
+
+| Mode | Best For | Searches | Speed | Cost |
+|------|----------|----------|-------|------|
+| **Search** | Exploring index, debugging | 1 (no LLM) | Fastest | Lowest |
+| **Answer** | Simple factual questions | 1 | Fast | Low |
+| **Chat** | Complex questions, multi-turn | 1-5 (autonomous) | Variable | Higher |
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
-
-## Related Projects
-
-- [nomikos](https://github.com/YOUR_USERNAME/nomikos) - Backend API server with RPG documentation index
-- [athenaeum](https://github.com/YOUR_USERNAME/athenaeum) - Core RAG library and MCP server
-
-## Acknowledgments
-
-- **Shadow World** RPG setting and lore
-- Built with React and Vite
-- Styled with custom fantasy-themed CSS
+MIT
