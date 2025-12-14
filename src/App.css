@@ -483,6 +483,34 @@
   transform: none;
 }
 
+/* Clear Container - positioned at bottom */
+.clear-container {
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  background: rgba(15, 12, 41, 0.5);
+  border-top: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.clear-container .clear-button {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: rgba(252, 165, 165, 0.9);
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.clear-container .clear-button:hover {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+  transform: translateY(-2px);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .app {
@@ -587,4 +615,17 @@
     padding: 0.35rem 0.7rem;
     font-size: 0.75rem;
   }
+}
+
+/* Tool Calls Badge */
+.tool-calls-badge {
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.75rem;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: rgba(196, 181, 253, 0.9);
+  display: inline-block;
+  font-style: italic;
 }

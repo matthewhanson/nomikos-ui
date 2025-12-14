@@ -202,6 +202,25 @@ export const SEARCH_EXAMPLES = [
   "Shoneb Empire"
 ];
 
+// Answer examples - simpler questions for single-answer RAG
+export const ANSWER_EXAMPLES = [
+  "What are the Dream Isles?",
+  "Who are the Dreamlords?",
+  "Where is the Channel Lighthouse?",
+  "What is the Isle of Twilight?",
+  "What creatures live in the Kelp Sea?",
+  "What is an Althan Installation?",
+  "Tell me about the Mermen",
+  "What is the Coral Road?",
+  "Describe the Kushua Anzeti",
+  "What are cronagenic vaults?",
+  "What is Atlantea?",
+  "Who built the Channel Lighthouse?",
+  "What are Iylari Elves?",
+  "What magical defenses protect the Dream Isles?",
+  "What equipment can be found in Althan facilities?"
+];
+
 // Function to get random examples
 export function getRandomExamples(examples, count = 3) {
   const shuffled = [...examples].sort(() => 0.5 - Math.random());

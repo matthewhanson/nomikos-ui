@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import ReactMarkdown from 'react-markdown'
 import './App.css'
-import { CHAT_EXAMPLES, SEARCH_EXAMPLES, getRandomExamples } from './exampleQueries'
+import { CHAT_EXAMPLES, ANSWER_EXAMPLES, SEARCH_EXAMPLES, getRandomExamples } from './exampleQueries'
 
 // Helper to construct public asset URLs with proper base path
 const publicUrl = (path) => {
@@ -10,20 +10,22 @@ const publicUrl = (path) => {
   return base + cleanPath
 }
 
-const API_BASE = import.meta.env.VITE_NOMIKOS_URL 
-  ? import.meta.env.VITE_NOMIKOS_URL 
+const API_BASE = import.meta.env.NOMIKOS_URL 
+  ? import.meta.env.NOMIKOS_URL 
   : '/api'
 
 function App() {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
-  const [mode, setMode] = useState('chat') // 'chat' or 'search'
+  const [mode, setMode] = useState('chat') // 'chat', 'answer', or 'search'
   const messagesEndRef = useRef(null)
 
   // Get random examples based on mode (regenerate when mode changes or messages cleared)
   const currentExamples = useMemo(() => {
-    const source = mode === 'chat' ? CHAT_EXAMPLES : SEARCH_EXAMPLES;
+    const source = mode === 'chat' ? CHAT_EXAMPLES 
+                 : mode === 'answer' ? ANSWER_EXAMPLES
+                 : SEARCH_EXAMPLES;
     return getRandomExamples(source, 4);
   }, [mode, messages.length === 0]);
 
@@ -57,6 +59,8 @@ function App() {
     try {
       if (mode === 'search') {
         await handleSearch(currentInput)
+      } else if (mode === 'answer') {
+        await handleAnswer(currentInput)
       } else {
         await handleChat(currentInput)
       }
@@ -113,12 +117,48 @@ function App() {
     }])
   }
 
+  const handleAnswer = async (query) => {
+    // Answer mode: single request, no conversation history
+    const response = await fetch(`${API_BASE}/answer`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [{ role: 'user', content: query }],  // Only current query, no history
+        model: 'gpt-4o-mini',
+        temperature: 0.7,
+        max_tokens: 2048
+      })
+    })
+
+    if (!response.ok) throw new Error('Answer failed: ' + response.status)
+
+    const data = await response.json()
+    const answer = data.choices?.[0]?.message?.content || 'No answer found.'
+    
+    setMessages(prev => [...prev, {
+      role: 'assistant',
+      content: answer
+    }])
+  }
+
   const handleChat = async (query) => {
+    // Build full conversation history for the API
+    // Include all previous messages to maintain context
+    const conversationHistory = messages
+      .filter(msg => msg.role === 'user' || msg.role === 'assistant')
+      .map(msg => ({
+        role: msg.role,
+        content: msg.content
+      }))
+    
+    // Add the current user message
+    conversationHistory.push({ role: 'user', content: query })
+    
     const response = await fetch(`${API_BASE}/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        messages: [{ role: 'user', content: query }],
+        messages: conversationHistory,  // Send full conversation history
         model: 'gpt-4o-mini',
         temperature: 0.7,
         max_tokens: 2048  // Increased for longer, more detailed responses
@@ -129,10 +169,12 @@ function App() {
 
     const data = await response.json()
     const answer = data.choices?.[0]?.message?.content || 'No answer found.'
+    const toolCallsMade = data.tool_calls_made || 0
     
     setMessages(prev => [...prev, {
       role: 'assistant',
-      content: answer
+      content: answer,
+      toolCallsMade  // Track how many searches the LLM made
     }])
   }
 
@@ -157,9 +199,20 @@ function App() {
               setInput('');
               setMessages([]);
             }}
-            title="AI-powered chat with context"
+            title="Interactive chat with multi-search - remembers conversation"
           >
             💬 Chat
+          </button>
+          <button 
+            className={mode === 'answer' ? 'active' : ''}
+            onClick={() => {
+              setMode('answer');
+              setInput('');
+              setMessages([]);
+            }}
+            title="Quick single-search answer - no memory"
+          >
+            � Answer
           </button>
           <button 
             className={mode === 'search' ? 'active' : ''}
@@ -168,9 +221,9 @@ function App() {
               setInput('');
               setMessages([]);
             }}
-            title="Search the archive"
+            title="Raw search results - no AI processing"
           >
-            🔍 Search
+            � Search
           </button>
         </div>
       </header>
@@ -183,7 +236,9 @@ function App() {
               <h2>Welcome to the Halls of Nomikos.</h2>
               <p className="welcome-desc">
                 {mode === 'chat' 
-                  ? 'Ask — and the scribes will consult their records, offering what lore they may, with notes from the canon itself.'
+                  ? 'Ask — and the scribes will consult their records multiple times, offering comprehensive lore with context from the canon itself.'
+                  : mode === 'answer'
+                  ? 'Ask — and receive a direct answer drawn from a single search of the archives.'
                   : 'Search the canonical documentation to find relevant passages and sources.'}
               </p>
               <div className="examples">
@@ -191,7 +246,7 @@ function App() {
                 <ul>
                   {currentExamples.map((query, idx) => (
                     <li key={idx} onClick={() => handleExampleClick(query)}>
-                      {mode === 'chat' ? `"${query}"` : `"${query}"`}
+                      "{query}"
                     </li>
                   ))}
                 </ul>
@@ -208,6 +263,11 @@ function App() {
                 <div className="message-content">
                   <ReactMarkdown>{msg.content}</ReactMarkdown>
                 </div>
+                {msg.toolCallsMade > 0 && (
+                  <div className="tool-calls-badge">
+                    🔍 Searched {msg.toolCallsMade} time{msg.toolCallsMade > 1 ? 's' : ''}
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -232,16 +292,30 @@ function App() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={mode === 'chat' 
-              ? "Ask a question about The Shadow World" 
-              : "Search the archive..."}
+            placeholder={
+              mode === 'chat' ? "Ask a question about The Shadow World" 
+              : mode === 'answer' ? "Ask a quick question..."
+              : "Search the archive..."
+            }
             disabled={loading}
             autoFocus
           />
           <button type="submit" disabled={loading || !input.trim()}>
-            {mode === 'chat' ? '💬' : '🔍'} Send
+            {mode === 'chat' ? '💬' : mode === 'answer' ? '📝' : '🔍'} Send
           </button>
         </form>
+        
+        {messages.length > 0 && (
+          <div className="clear-container">
+            <button 
+              className="clear-button"
+              onClick={() => setMessages([])}
+              title="Clear all messages and start fresh"
+            >
+              🗑️ Clear History
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )
