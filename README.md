@@ -136,20 +136,22 @@ Environment variables (create `.env.local` to override):
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `NOMIKOS_URL` | Backend API endpoint URL | `/api` (proxies to localhost:8000) |
+| `VITE_NOMIKOS_URL` | Backend API endpoint URL | `/api` (proxies to localhost:8000) |
+
+**Note:** Vite requires the `VITE_` prefix for environment variables to be exposed to client-side code.
 
 ### Example Configurations
 
 **Local development:**
 ```bash
 # .env.local
-NOMIKOS_URL=http://localhost:8000
+VITE_NOMIKOS_URL=http://localhost:8000
 ```
 
 **Deployed API:**
 ```bash
 # .env.local
-NOMIKOS_URL=https://your-lambda-api.amazonaws.com/prod
+VITE_NOMIKOS_URL=https://your-api-gateway-url.execute-api.us-east-1.amazonaws.com/prod
 ```
 
 ## Building for Production

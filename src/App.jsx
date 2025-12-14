@@ -10,8 +10,8 @@ const publicUrl = (path) => {
   return base + cleanPath
 }
 
-const API_BASE = import.meta.env.NOMIKOS_URL 
-  ? import.meta.env.NOMIKOS_URL 
+const API_BASE = import.meta.env.VITE_NOMIKOS_URL 
+  ? import.meta.env.VITE_NOMIKOS_URL 
   : '/api'
 
 function App() {

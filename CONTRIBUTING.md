@@ -28,11 +28,13 @@ Thank you for your interest in contributing! This document provides guidelines f
    Create a `.env.local` file for local development:
    ```bash
    # Option 1: Local API server
-   echo "NOMIKOS_URL=http://localhost:8000" > .env.local
+   echo "VITE_NOMIKOS_URL=http://localhost:8000" > .env.local
    
    # Option 2: Deployed API
-   echo "NOMIKOS_URL=https://your-api-endpoint.com/prod" > .env.local
+   echo "VITE_NOMIKOS_URL=https://your-api-gateway-url.execute-api.us-east-1.amazonaws.com/prod" > .env.local
    ```
+   
+   **Note:** Vite requires the `VITE_` prefix for environment variables to be accessible in client code.
 
 4. **Start the development server:**
    ```bash
@@ -195,11 +197,14 @@ export const SEARCH_EXAMPLES = [
 The API base URL is configured in `src/App.jsx`:
 
 ```javascript
-const API_BASE = import.meta.env.NOMIKOS_URL || '/api'
+const API_BASE = import.meta.env.VITE_NOMIKOS_URL || '/api'
 ```
+
+**Note:** The `VITE_` prefix is required for Vite to expose environment variables to client code.
 
 Endpoints:
 - `/search` - POST with `{query, limit}`
+- `/answer` - POST with `{messages, model, temperature, max_tokens}`
 - `/chat` - POST with `{messages, model, temperature, max_tokens}`
 
 ## Pull Request Guidelines
