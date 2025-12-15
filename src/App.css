@@ -618,8 +618,11 @@
 }
 
 /* Tool Calls Badge */
-.tool-calls-badge {
+.tool-calls-container {
   margin-top: 0.75rem;
+}
+
+.tool-calls-badge {
   padding: 0.4rem 0.75rem;
   background: rgba(139, 92, 246, 0.15);
   border: 1px solid rgba(139, 92, 246, 0.3);
@@ -628,4 +631,84 @@
   color: rgba(196, 181, 253, 0.9);
   display: inline-block;
   font-style: italic;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.tool-calls-badge:hover {
+  background: rgba(139, 92, 246, 0.25);
+  border-color: rgba(139, 92, 246, 0.5);
+  transform: translateY(-1px);
+}
+
+.expand-arrow {
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+  opacity: 0.7;
+}
+
+.tool-calls-details {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(30, 20, 60, 0.4);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 6px;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.details-header {
+  font-size: 0.75rem;
+  color: rgba(196, 181, 253, 0.7);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.tool-call-item {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  margin-bottom: 0.25rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  align-items: flex-start;
+}
+
+.tool-call-item:last-child {
+  margin-bottom: 0;
+}
+
+.tool-call-number {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(196, 181, 253, 0.9);
+}
+
+.tool-call-query {
+  flex: 1;
+  font-size: 0.85rem;
+  color: rgba(226, 232, 240, 0.9);
+  line-height: 1.5;
+  word-break: break-word;
 }

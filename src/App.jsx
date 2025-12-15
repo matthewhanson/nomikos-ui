@@ -19,6 +19,7 @@ function App() {
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [mode, setMode] = useState('chat') // 'chat', 'answer', or 'search'
+  const [expandedMetrics, setExpandedMetrics] = useState(null) // Track which message's metrics are expanded
   const messagesEndRef = useRef(null)
 
   // Get random examples based on mode (regenerate when mode changes or messages cleared)
@@ -170,11 +171,13 @@ function App() {
     const data = await response.json()
     const answer = data.choices?.[0]?.message?.content || 'No answer found.'
     const toolCallsMade = data.tool_calls_made || 0
+    const toolCalls = data.tool_calls || []  // Capture actual tool call details
     
     setMessages(prev => [...prev, {
       role: 'assistant',
       content: answer,
-      toolCallsMade  // Track how many searches the LLM made
+      toolCallsMade,  // Track how many searches the LLM made
+      toolCalls  // Store the actual search queries and details
     }])
   }
 
@@ -264,8 +267,37 @@ function App() {
                   <ReactMarkdown>{msg.content}</ReactMarkdown>
                 </div>
                 {msg.toolCallsMade > 0 && (
-                  <div className="tool-calls-badge">
-                    🔍 Searched {msg.toolCallsMade} time{msg.toolCallsMade > 1 ? 's' : ''}
+                  <div className="tool-calls-container">
+                    <div 
+                      className="tool-calls-badge"
+                      onClick={() => setExpandedMetrics(expandedMetrics === idx ? null : idx)}
+                      title="Click for search details"
+                    >
+                      🔍 Searched {msg.toolCallsMade} time{msg.toolCallsMade > 1 ? 's' : ''}
+                      <span className="expand-arrow">{expandedMetrics === idx ? ' ▼' : ' ▶'}</span>
+                    </div>
+                    {expandedMetrics === idx && msg.toolCalls && msg.toolCalls.length > 0 && (
+                      <div className="tool-calls-details">
+                        <div className="details-header">Search Queries Used:</div>
+                        {msg.toolCalls.map((call, callIdx) => (
+                          <div key={callIdx} className="tool-call-item">
+                            <div className="tool-call-number">#{callIdx + 1}</div>
+                            <div className="tool-call-query">
+                              {call.function?.arguments ? 
+                                (() => {
+                                  try {
+                                    const args = JSON.parse(call.function.arguments);
+                                    return args.query || call.function.name;
+                                  } catch {
+                                    return call.function.name;
+                                  }
+                                })()
+                                : call.function?.name || 'Search'}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
