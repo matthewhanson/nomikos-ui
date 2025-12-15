@@ -10,9 +10,9 @@ const publicUrl = (path) => {
   return base + cleanPath
 }
 
-const API_BASE = import.meta.env.VITE_NOMIKOS_URL 
+const API_BASE = (import.meta.env.VITE_NOMIKOS_URL 
   ? import.meta.env.VITE_NOMIKOS_URL 
-  : '/api'
+  : '/api').replace(/\/$/, '')  // Remove trailing slash to prevent double slashes
 
 function App() {
   const [messages, setMessages] = useState([])
