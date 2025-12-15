@@ -1,224 +1,86 @@
 // Example queries for Nomikos - curated from Shadow World lore
 export const CHAT_EXAMPLES = [
-  // Lords of Essænce & First Era
-  "Who were the Lords of Essænce?",
-  "What was the conflict between Ûtha and Kadæna?",
-  "Tell me about the First Era and how the world was shaped",
-  "What powers did the Lords of Essænce possess?",
-  "How did the First Era end?",
-  
-  // Wars & Conflicts
-  "What were the Wars of Dominion?",
-  "Describe the Unlife Wars",
-  "What happened during the fight for Uj?",
-  "Tell me about the war between Vajaar and Komari",
-  "What was the conflict between the Jan and Shoneb Empire?",
-  "Describe the Naal Triumvirate war with Ansidus",
-  "What role did the Dark Gods play in the Wars of Dominion?",
-  "How did the Comet affect the Flows during the Second Era?",
-  
-  // Characters & Heroes
-  "Who was Lorgalis and what happened to him?",
-  "Tell me about Andraax",
-  "What is known about the Titan Kio Viax?",
-  "Who were Ilmaris Terisonen and Tethior the Smith?",
-  "Describe the Blood Brethren",
-  "What is the role of Ordainers?",
-  
-  // Creatures & Beings
-  "Tell me about dragons and their characteristics",
-  "What are the different types of dragons?",
-  "Describe the Titans and their role in history",
-  "What creatures came through the Portals during the Wars?",
-  "Tell me about the demons of Charón",
-  "What are Shards and Kæden?",
-  
-  // Geography & Locations
-  "Describe the geography of Jaiman",
-  "What is Emer and its significance?",
-  "Tell me about the city of Uj",
-  "Where is the Dalov Lemira and what is its purpose?",
-  "Describe Kulthea",
-  "What are the major cities of the Shadow World?",
-  "Tell me about Telegris City",
-  "What is Brighthead City known for?",
-  "Describe the Komari islands",
-  "What is the Grotto Path?",
-  
-  // Magic & Powers
-  "What are the Essænce Flows?",
-  "How did Flowstorms affect the world?",
-  "What are Portals and how were they created?",
-  "Describe the power of the Flows",
-  "What happened when the Comet disrupted the Flows?",
-  "How do chronagenic vaults work?",
-  "What magical powers did the Masters possess?",
-  
-  // Races & Civilizations
-  "What were the Masters of Emer?",
-  "Tell me about the Komari people",
-  "Who are the Lankani?",
-  "Describe the Pochanti civilization",
-  "What is the Jan culture?",
-  "Tell me about the Shoneb Empire",
-  "Who were the Loremasters?",
-  "What role did the Sages play?",
-  
-  // Historical Events
-  "What major events marked the end of the Second Era?",
-  "When did the Lords of Orhan intervene in Kulthea?",
-  "What happened in the year 6450?",
-  "Describe the close pass of the Comet",
-  "What was the significance of year 3347?",
-  "Tell me about the attack on Vajaar's fleet",
-  "What happened during 5975 in Thuul?",
-  
-  // Religions & Gods
-  "Who are the Dark Gods of Charón?",
-  "What are the Lords of Orhan?",
-  "Tell me about the Priest-king of Pochantos",
-  "What is the role of Dark Priests?",
-  "How do the gods interact with the mortal world?",
-  
-  // Military & Strategy
-  "How did the Komari defeat Vajaar's fleet?",
-  "What was the coral road strategy?",
-  "Describe the siege tactics used in the Wars of Dominion",
-  "How did the Titans fight in battle?",
-  "What weapons were used during the First Era?",
-  
-  // Artifacts & Relics
-  "What legendary artifacts exist in the Shadow World?",
-  "Tell me about weapons forged by the Lords of Essænce",
-  "What happened to the records of the First Era?",
-  "Are there any surviving relics from Ûtha's time?",
-  
-  // Natural Disasters & Cataclysms
-  "What geological events occurred during the Wars of Dominion?",
-  "How did the First Era cataclysm reshape the world?",
-  "Describe the hurricanes and earthquakes of the Second Era",
-  "What happened when continents sank?",
-  "How did volcanic eruptions affect civilizations?",
-  
-  // Politics & Governance
-  "What was the Naal Triumvirate?",
-  "How was the kingdom of Ansidus governed?",
-  "What is the role of the Prælector?",
-  "Describe the Izaran League",
-  "How did the Vajaar government function?",
-  
-  // Trade & Economy
-  "What trade routes existed between nations?",
-  "How did the Lankani raiders affect trade?",
-  "What goods were traded through the Grotto Path?",
-  "Describe the economic impact of the wars",
-  
-  // Time & Eras
-  "How are the Eras of the Shadow World defined?",
-  "What marks the transition between Eras?",
-  "How long did the Second Era last?",
-  "When does the Third Era begin?",
-  
-  // Mysteries & Unknowns
-  "What happened to Lorgalis's body?",
-  "Where did the Masters of Emer vanish to?",
-  "Is Andraax truly insane?",
-  "What lies beyond the known lands of Kulthea?",
-  "Are there other worlds besides Kulthea and Orhan?"
+  "Tell me about the assassination of Damos Huroth Alizon II and what happened after",
+  "How did Jiax become King of Saral and what was his relationship with the Loremasters?",
+  "What role did the Priest of Yarthraak play in governing Helyssa?",
+  "Explain how Aldaron unified Emer and became Emperor",
+  "What happened during the fight for Uj when Kio Viax faced Andaras?",
+  "Tell me about the war between Jan and the Shoneb Empire in Thuul",
+  "How did the Blood Brethren defend against Vajaar in the Komari war?",
+  "What caused the conflict between the Naal Triumvirate and Ansidus?",
+  "Describe the major trade centers like Lethys and Kaitaine",
+  "What makes Kakuda unique as an independent city-state?",
+  "How does the magic of the three Realms differ from Arcane Power?",
+  "What are the Lords of Essænce and how did they master both Flows and mind power?",
+  "Tell me about Sea Drakes and their rivalry with whales and giant squid",
+  "What are Fell Beasts and how can they be tamed as air steeds?",
+  "Describe the war-mongering Lugrôki and their hatred of men and elves",
+  "What is Trystrium and why is it so valuable for weapons?",
+  "How do Bloodstones work and what makes them single-use?",
+  "What protective powers do Bluestones have against essence spells?",
+  "Tell me about Eissa's Tears and how they detect evil",
+  "What happened in the year 6050 that changed the balance of power?",
+  "How did the political situation in Emer change around year 1300?",
+  "What were the consequences of the battles in year 3347?",
+  "Describe the conflict between Channeling, Essence, and Mentalism users",
+  "How do the Nomari survive in their subterranean world?",
+  "What makes the Ta-lairi different from both humans and elves?"
+];
+
+export const ANSWER_EXAMPLES = [
+  "What is Trystrium made from?",
+  "How much does Trystrium cost per ounce?",
+  "Where is Lethys located?",
+  "What year was Damos Huroth Alizon II assassinated?",
+  "Who became King of Saral after the assassination?",
+  "When did Aldaron crown himself Emperor of Emer?",
+  "What is the wingspan of a Fell Beast?",
+  "How tall are Hill Giants?",
+  "What do Bloodstones do?",
+  "What color is Trystrium metal?",
+  "Where is Yarlis City?",
+  "What are the three Realms of magic?",
+  "What realm does Channeling belong to?",
+  "What realm does Essence belong to?",  
+  "What realm does Mentalism belong to?",
+  "What happened in year 5975?",
+  "What happened in year 5599?",
+  "What is Kakuda known for?",
+  "What gems are attuned to Essence magic?",
+  "What gems are attuned to Channeling magic?",
+  "What gems are attuned to Mentalism magic?",
+  "What do Eissa's Tears look like?",
+  "Where is Trystrium found?",
+  "What are Sea Drakes?",
+  "What is the Grotto Path?"
 ];
 
 export const SEARCH_EXAMPLES = [
-  // Specific entities
-  "Lords of Essænce",
-  "Ûtha and Kadæna",
-  "Wars of Dominion",
-  "Lorgalis",
-  "Andraax",
-  "Kio Viax",
-  "Blood Brethren",
-  
-  // Locations
-  "Jaiman",
-  "Emer",
-  "Uj",
-  "Kulthea",
-  "Telegris City",
-  "Brighthead City",
-  "Dalov Lemira",
-  "Komari islands",
-  "Vajaar",
-  
-  // Creatures
-  "dragons",
-  "Titans",
-  "demons of Charón",
-  "Ordainers",
-  
-  // Magic & Powers
-  "Essænce Flows",
-  "Flowstorms",
-  "Portals",
-  "chronagenic vaults",
-  
-  // Wars & Battles
-  "Unlife Wars",
-  "fight for Uj",
-  "Vajaar-Komari war",
-  "Jan and Shoneb conflict",
-  
-  // Races & Groups
-  "Masters of Emer",
-  "Komari people",
-  "Lankani raiders",
-  "Pochanti",
-  "Loremasters",
-  
-  // Historical periods
-  "First Era",
-  "Second Era",
-  "Third Era",
-  "year 6450",
-  "year 3347",
-  
-  // Gods & Religion
-  "Dark Gods of Charón",
-  "Lords of Orhan",
-  "Dark Priests",
-  
-  // Natural phenomena
-  "the Comet",
-  "earthquakes and volcanos",
-  "tidal waves",
-  "continental shifts",
-  
-  // Artifacts & Objects
-  "legendary weapons",
-  "ancient artifacts",
-  "First Era records",
-  
-  // Organizations
-  "Naal Triumvirate",
-  "Izaran League",
-  "Shoneb Empire"
-];
-
-// Answer examples - simpler questions for single-answer RAG
-export const ANSWER_EXAMPLES = [
-  "What are the Dream Isles?",
-  "Who are the Dreamlords?",
-  "Where is the Channel Lighthouse?",
-  "What is the Isle of Twilight?",
-  "What creatures live in the Kelp Sea?",
-  "What is an Althan Installation?",
-  "Tell me about the Mermen",
-  "What is the Coral Road?",
-  "Describe the Kushua Anzeti",
-  "What are cronagenic vaults?",
-  "What is Atlantea?",
-  "Who built the Channel Lighthouse?",
-  "What are Iylari Elves?",
-  "What magical defenses protect the Dream Isles?",
-  "What equipment can be found in Althan facilities?"
+  "Damos Huroth Alizon II",
+  "Jiax King of Saral",
+  "Priest of Yarthraak",
+  "Aldaron Emperor",
+  "Kio Viax titan",
+  "Prince Kier",
+  "Lethys trade center",
+  "Kaitaine city-state",
+  "Kakuda Haid",
+  "Yarlis City",
+  "Ketalnor",
+  "Trystrium metal",
+  "Bloodstone gem",
+  "Bluestone protection",
+  "Eissa's Tears",
+  "Sea Drakes ocean",
+  "Fell Beasts dragons",
+  "Hill Giants",
+  "Lugrôki warriors",
+  "Nomari subterranean",
+  "Ta-lairi blood",
+  "three Realms magic",
+  "Channeling Essence Mentalism",
+  "Arcane Power",
+  "Lords of Essænce"
 ];
 
 // Function to get random examples
