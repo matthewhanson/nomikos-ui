@@ -18,13 +18,13 @@ function App() {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
-  const [mode, setMode] = useState('chat') // 'chat', 'answer', or 'search'
+  const [mode, setMode] = useState('chat') // 'chat', 'andraax', 'answer', or 'search'
   const [expandedMetrics, setExpandedMetrics] = useState(null) // Track which message's metrics are expanded
   const messagesEndRef = useRef(null)
 
   // Get random examples based on mode (regenerate when mode changes or messages cleared)
   const currentExamples = useMemo(() => {
-    const source = mode === 'chat' ? CHAT_EXAMPLES 
+    const source = (mode === 'chat' || mode === 'andraax') ? CHAT_EXAMPLES 
                  : mode === 'answer' ? ANSWER_EXAMPLES
                  : SEARCH_EXAMPLES;
     return getRandomExamples(source, 4);
@@ -62,7 +62,7 @@ function App() {
         await handleSearch(currentInput)
       } else if (mode === 'answer') {
         await handleAnswer(currentInput)
-      } else {
+      } else if (mode === 'chat' || mode === 'andraax') {
         await handleChat(currentInput)
       }
     } catch (error) {
@@ -155,11 +155,15 @@ function App() {
     // Add the current user message
     conversationHistory.push({ role: 'user', content: query })
     
+    // Determine persona based on mode
+    const persona = mode === 'andraax' ? 'andraax' : 'scribe'
+    
     const response = await fetch(`${API_BASE}/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         messages: conversationHistory,  // Send full conversation history
+        persona: persona,  // Use andraax or scribe based on mode
         model: 'gpt-4o-mini',
         temperature: 0.7,
         max_tokens: 2048  // Increased for longer, more detailed responses
@@ -202,9 +206,20 @@ function App() {
               setInput('');
               setMessages([]);
             }}
-            title="Interactive chat with multi-search - remembers conversation"
+            title="Chat with the Scribe - Interactive chat with multi-search, remembers conversation"
           >
             💬 Chat
+          </button>
+          <button 
+            className={mode === 'andraax' ? 'active' : ''}
+            onClick={() => {
+              setMode('andraax');
+              setInput('');
+              setMessages([]);
+            }}
+            title="Ask Andraax - Ancient loremaster who guards secrets, multi-search with memory"
+          >
+            🔮 Ask Andraax
           </button>
           <button 
             className={mode === 'answer' ? 'active' : ''}
@@ -215,7 +230,7 @@ function App() {
             }}
             title="Quick single-search answer - no memory"
           >
-            � Answer
+            📖 Answer
           </button>
           <button 
             className={mode === 'search' ? 'active' : ''}
@@ -226,7 +241,7 @@ function App() {
             }}
             title="Raw search results - no AI processing"
           >
-            � Search
+            🔍 Search
           </button>
         </div>
       </header>
@@ -240,6 +255,8 @@ function App() {
               <p className="welcome-desc">
                 {mode === 'chat' 
                   ? 'Ask — and the scribes will consult their records multiple times, offering comprehensive lore with context from the canon itself.'
+                  : mode === 'andraax'
+                  ? 'Seek counsel from Andraax, ancient Loari Elf and co-founder of the Loremasters. He speaks in riddles and guards certain... truths.'
                   : mode === 'answer'
                   ? 'Ask — and receive a direct answer drawn from a single search of the archives.'
                   : 'Search the canonical documentation to find relevant passages and sources.'}
