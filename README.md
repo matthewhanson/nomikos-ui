@@ -1,6 +1,6 @@
 # Nomikos UI
 
-*Fantasy-themed chat and search interface for the Nomikos RPG knowledge base.*
+*Fantasy-themed chat and search interface for the Nomikos RPG knowledge base - now with comprehensive debugging for RAG development.*
 
 A React + Vite web application providing an elegant interface for AI-powered search and chat over RPG campaign documentation.
 
@@ -8,11 +8,32 @@ A React + Vite web application providing an elegant interface for AI-powered sea
 
 - 🎨 **Fantasy theme** - Purple/gold gradients with sword motifs and library aesthetics
 - 💬 **Chat mode** - Interactive Q&A with multi-search capability (LLM autonomously searches as needed)
-- �� **Answer mode** - Simple RAG with single search for quick factual questions
+- 🔮 **Ask Andraax mode** - Alternative persona with different system prompt
+- 📖 **Answer mode** - Simple RAG with single search for quick factual questions
 - 🔍 **Search mode** - Direct semantic search of the knowledge base
 - ✨ **Markdown rendering** - Rich formatting for responses
 - 📱 **Responsive design** - Works on desktop and mobile
 - 🎲 **Example queries** - 100+ curated questions to explore the knowledge base
+
+### 🐛 Development & Debugging Features
+
+Each chat response includes expandable debugging information:
+
+- **Search count badge** - Shows how many tool calls the LLM made
+- **Search details** - For each tool call shows:
+  - Query text used by the LLM
+  - Tool type: `📅 Timeline` or `📚 Knowledge Base`
+  - Whether `🔗 Hybrid` search was used (BM25 + Vector)
+  - Parameters: `limit`, `start_year`, `end_year`
+- **Token usage** - Prompt, completion, and total tokens
+- **Debug data** (collapsible) - Complete request payload and response JSON
+
+This makes it easy to:
+- See exactly what searches the LLM is performing
+- Verify hybrid search is being used when appropriate
+- Check if timeline searches are triggered for year-based queries
+- Debug retrieval issues by inspecting full request/response cycles
+- Monitor token usage and optimize prompts
 
 ## Quick Start
 

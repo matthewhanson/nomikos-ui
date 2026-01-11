@@ -126,7 +126,7 @@ function App() {
       body: JSON.stringify({
         messages: [{ role: 'user', content: query }],  // Only current query, no history
         model: 'gpt-4o-mini',
-        temperature: 0.7,
+        temperature: 0.2,  // Even lower for quick factual answers
         max_tokens: 2048
       })
     })
@@ -158,16 +158,18 @@ function App() {
     // Determine persona based on mode
     const persona = mode === 'andraax' ? 'andraax' : 'scribe'
     
+    const requestPayload = {
+      messages: conversationHistory,  // Send full conversation history
+      persona: persona,  // Use andraax or scribe based on mode
+      model: 'gpt-4o-mini',
+      temperature: 0.3,  // Lower temperature for factual accuracy in RAG
+      max_tokens: 4096  // Increased for comprehensive responses with lists/details
+    }
+    
     const response = await fetch(`${API_BASE}/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        messages: conversationHistory,  // Send full conversation history
-        persona: persona,  // Use andraax or scribe based on mode
-        model: 'gpt-4o-mini',
-        temperature: 0.7,
-        max_tokens: 2048  // Increased for longer, more detailed responses
-      })
+      body: JSON.stringify(requestPayload)
     })
 
     if (!response.ok) throw new Error('Chat failed: ' + response.status)
@@ -176,12 +178,18 @@ function App() {
     const answer = data.choices?.[0]?.message?.content || 'No answer found.'
     const toolCallsMade = data.tool_calls_made || 0
     const toolCalls = data.tool_calls || []  // Capture actual tool call details
+    const usage = data.usage
+    const classification = data.classification
     
     setMessages(prev => [...prev, {
       role: 'assistant',
       content: answer,
       toolCallsMade,  // Track how many searches the LLM made
-      toolCalls  // Store the actual search queries and details
+      toolCalls,  // Store the actual search queries and details
+      usage,  // Token usage info
+      classification,  // Classification level if applied
+      requestPayload,  // Store the request for debugging
+      responseData: data  // Store full response for debugging
     }])
   }
 
@@ -295,24 +303,62 @@ function App() {
                     </div>
                     {expandedMetrics === idx && msg.toolCalls && msg.toolCalls.length > 0 && (
                       <div className="tool-calls-details">
-                        <div className="details-header">Search Queries Used:</div>
-                        {msg.toolCalls.map((call, callIdx) => (
-                          <div key={callIdx} className="tool-call-item">
-                            <div className="tool-call-number">#{callIdx + 1}</div>
-                            <div className="tool-call-query">
-                              {call.function?.arguments ? 
-                                (() => {
-                                  try {
-                                    const args = JSON.parse(call.function.arguments);
-                                    return args.query || call.function.name;
-                                  } catch {
-                                    return call.function.name;
-                                  }
-                                })()
-                                : call.function?.name || 'Search'}
+                        <div className="details-header">🔎 Search Details</div>
+                        {msg.toolCalls.map((call, callIdx) => {
+                          let args = {};
+                          try {
+                            args = call.function?.arguments ? JSON.parse(call.function.arguments) : {};
+                          } catch (e) {
+                            console.error('Failed to parse tool arguments:', e);
+                          }
+                          
+                          const isTimeline = call.function?.name === 'search_timeline';
+                          const isHybrid = args.hybrid === true;
+                          
+                          return (
+                            <div key={callIdx} className="tool-call-item">
+                              <div className="tool-call-header">
+                                <div className="tool-call-number">Search #{callIdx + 1}</div>
+                                <div className="tool-call-type">
+                                  {isTimeline ? '📅 Timeline' : '📚 Knowledge Base'}
+                                  {isHybrid && ' + 🔗 Hybrid'}
+                                </div>
+                              </div>
+                              <div className="tool-call-query">
+                                <strong>Query:</strong> {args.query || 'N/A'}
+                              </div>
+                              <div className="tool-call-params">
+                                {args.limit && <span className="param">📊 Limit: {args.limit}</span>}
+                                {isHybrid && <span className="param">🔗 Hybrid: BM25 + Vector</span>}
+                                {args.start_year && <span className="param">📅 Start: {args.start_year}</span>}
+                                {args.end_year && <span className="param">📅 End: {args.end_year}</span>}
+                              </div>
+                            </div>
+                          );
+                        })}
+                        
+                        {msg.usage && (
+                          <div className="usage-info">
+                            <div className="details-header">📈 Token Usage</div>
+                            <div className="usage-stats">
+                              <span>Prompt: {msg.usage.prompt_tokens?.toLocaleString()}</span>
+                              <span>Completion: {msg.usage.completion_tokens?.toLocaleString()}</span>
+                              <span>Total: {msg.usage.total_tokens?.toLocaleString()}</span>
                             </div>
                           </div>
-                        ))}
+                        )}
+                        
+                        <details className="debug-details">
+                          <summary className="debug-summary">🐛 Debug Data (Request & Response)</summary>
+                          <div className="debug-section">
+                            <div className="debug-label">Request Payload:</div>
+                            <pre className="debug-json">{JSON.stringify(msg.requestPayload, null, 2)}</pre>
+                          </div>
+                          <div className="debug-section">
+                            <div className="debug-label">Full Response:</div>
+                            <pre className="debug-json">{JSON.stringify(msg.responseData, null, 2)}</pre>
+                          </div>
+                        </details>
                       </div>
                     )}
                   </div>
